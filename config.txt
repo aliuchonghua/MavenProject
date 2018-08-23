@@ -1,0 +1,11 @@
+{
+	"aobj":{
+		"classname":"com.westos.web01.ioc.A",
+		"props":[
+			{
+				"name":"a",
+				"classname":"com.westos.web01.ioc.AInterfaceImpl2"
+			}
+		]
+	}
+}
