@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
-//老师的ioc里面
+//老师的ioc里面,
 public class Factory {
     public static Object creat(String objname) throws IOException, IllegalAccessException, InstantiationException, ClassNotFoundException {
         //读取文件
