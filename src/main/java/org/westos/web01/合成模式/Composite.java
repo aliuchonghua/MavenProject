@@ -19,6 +19,10 @@ public class Composite implements Component{
         return componentList;
     }
 
+    /**
+     *
+     * @param componentList
+     */
     public void setComponentList(List<Component> componentList) {
         this.componentList = componentList;
     }
