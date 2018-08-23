@@ -3,7 +3,7 @@ package org.westos.web01.合成模式;
 import java.util.List;
 
 /**
- * 合成模式中的接口的实现
+ * 合成模式中的Composite接口的实现
  */
 public class Composite implements Component{
     private List<Component> componentList;
@@ -19,10 +19,6 @@ public class Composite implements Component{
         return componentList;
     }
 
-    /**
-     *
-     * @param componentList
-     */
     public void setComponentList(List<Component> componentList) {
         this.componentList = componentList;
     }
