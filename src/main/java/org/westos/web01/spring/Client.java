@@ -3,6 +3,7 @@ package org.westos.web01.spring;
 import org.westos.web01.IOC模型.A;
 import org.westos.web01.IOC模型.AInterface;
 import org.westos.web01.IOC模型.AInterfaceImpl1;
+import org.westos.web01.Util.SpringUtil;
 
 
 /**

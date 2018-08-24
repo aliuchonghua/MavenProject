@@ -1,51 +1,47 @@
 package org.westos.web01.bean;
 
-import java.util.Objects;
+import java.util.List;
+import java.util.Map;
 
+/**
+ * Created by Administrator on 2018/8/24.
+ */
 public class Student {
-    private String name;
-    private Integer id;
+    private String xuhao;
+    private String xingming;
+    private List<String> aihao;
+    private Map<String,Integer> chengji;
 
-    public String getName() {
-        return name;
+    public Map<String, Integer> getChengji() {
+        return chengji;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setChengji(Map<String, Integer> chengji) {
+        this.chengji = chengji;
     }
 
-    public Integer getId() {
-        return id;
+    public List<String> getAihao() {
+        return aihao;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setAihao(List<String> aihao) {
+        this.aihao = aihao;
     }
 
-    @Override
-    public String toString() {
-        return "Student{" +
-                "name='" + name + '\'' +
-                ", id=" + id +
-                '}';
+    public String getXuhao() {
+        return xuhao;
     }
 
-    public Student(String name, Integer id) {
-        this.name = name;
-        this.id = id;
+    public void setXuhao(String xuhao) {
+        this.xuhao = xuhao;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Student student = (Student) o;
-        return Objects.equals(name, student.name) &&
-                Objects.equals(id, student.id);
+    public String getXingming() {
+        return xingming;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, id);
+    public void setXingming(String xingming) {
+        this.xingming = xingming;
     }
+
 }

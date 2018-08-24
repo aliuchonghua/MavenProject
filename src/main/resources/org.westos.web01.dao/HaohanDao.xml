@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.westos.web01.dao.HaohanDao">
+
+    <resultMap id="news" type="com.westos.web01.bean.News">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="subject_id" column="subject_id"/>
+        <association property="subject" column="subject_id" javaType="org.westos.web01.bean.Subject">
+            <id property="id" column="subject_id"></id>
+            <result property="name" column="name"></result>
+        </association>
+    </resultMap>
+
+    <resultMap id="subject" type="org.westos.web01.bean.Subject">
+        <id property="id" column="subject_id"/>
+        <result property="name" column="name"></result>
+        <collection property="news" ofType="com.westos.web01.bean.News">
+            <id column="id" property="id"/>
+            <result property="title" column="title"/>
+            <result property="subject_id" column="subject_id"/>
+        </collection>
+
+    </resultMap>
+    <sql id="commonsql">
+        select
+        a.id,a.title,a.subject_id,b.name
+        from news a
+        INNER  JOIN  subject b
+        on a.subject_id=b.id
+    </sql>
+
+    <select id="getHaohanByxuhao" parameterType="java.lang.Integer" resultType="com.westos.web01.bean.Haohan">
+        select * from heroinfo where xuhao=#{xuhao}
+    </select>
+
+    <select id="listNews" resultMap="news">
+        <include refid="commonsql"/>
+
+    </select>
+    <select id="listSubjects" resultMap="subject">
+        <include refid="commonsql"/>
+    </select>
+</mapper>

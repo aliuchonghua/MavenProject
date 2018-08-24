@@ -12,7 +12,7 @@
     <bean id="aobj" class="org.westos.web01.IOC模型.A">
 
         <property name="a">
-            <bean class="org.westos.web01.IOC模型.AInterfaceImpl2"/>
+            <bean class="org.westos.web01.IOC模型.AInterfaceImpl1"/>
         </property>
     </bean>
     <!--<bean id="abc" class="com.westos.web01.controller.abc">

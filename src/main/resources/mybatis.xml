@@ -24,7 +24,7 @@
     </environments>
     <mappers>
         <!--此处注意xml文件的路径及路径的大小写问题-->
-        <mapper resource="com/westos/web01/dao/HaohanDao.xml"/>
+        <mapper resource="com/westos/web02/dao/HaohanDao.xml"/>
         <!--<package name="com.westos.web01.dao"/>-->
     </mappers>
 

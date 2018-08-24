@@ -1,4 +1,4 @@
-package org.westos.web01.spring;
+package org.westos.web01.Util;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
