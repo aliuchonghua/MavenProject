@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <properties>
+        <property name="driver" value="com.mysql.jdbc.Driver"/>
+    </properties>
+    <!--<typeAliases>-->
+        <!--<typeAlias type="com.westos.web01.dao.HaohanDao" alias="hd"/>-->
+    <!--</typeAliases>-->
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC">
+            </transactionManager>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/javaweb?useUnicode=true&amp;characterEncoding=utf-8"/>
+                <property name="username" value="root"/>
+                <property name="password" value="123456"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <!--此处注意xml文件的路径及路径的大小写问题-->
+        <mapper resource="com/westos/web01/dao/HaohanDao.xml"/>
+        <!--<package name="com.westos.web01.dao"/>-->
+    </mappers>
+
+</configuration>

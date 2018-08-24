@@ -4,22 +4,25 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
+
 //老师的ioc里面,
 public class Factory {
-    public static Object creat(String objname) throws IOException, IllegalAccessException, InstantiationException, ClassNotFoundException {
+    public static Object create(String objname) throws IOException, IllegalAccessException, InstantiationException, ClassNotFoundException, InvocationTargetException {
         //读取文件
         String classstr = FileUtils.readFileToString(new File("config.txt"), "utf-8");
         //将文件解析成JSON
         JSONObject json = JSON.parseObject(classstr);
         //根据json对象创建对象
-        Map map=new HashMap();
-        for (String key:json.keySet()){
+        Map map = new HashMap();
+        for (String key : json.keySet()) {
             //通过key获取v
             String classname = json.getJSONObject(key).getString("classname");
             JSONArray props = json.getJSONObject(key).getJSONArray("props");
@@ -32,23 +35,32 @@ public class Factory {
                 //创建属性的类
                 Object pobj = createobjbyClassname(p.getString("classname"));
                 //调用对象的set方法设置属性值
-                bindProperty(obj,p.getString("name"),pobj);
+                bindProperty(obj, p.getString("name"), pobj);
             }
+            //将对象放到map中
+            map.put(key, obj);
+
 
         }
-        return null;
+        return map.get(objname);
     }
 
     /**
      * 给对象的属性上绑定具体的值
+     *
      * @param obj:要绑定属性的对象
      * @param name:属性名
      * @param pobj:属性值
      */
-    private static void bindProperty(Object obj, String name, Object pobj) {
+    private static void bindProperty(Object obj, String name, Object pobj) throws InvocationTargetException, IllegalAccessException {
         //找到所有的方法
         Method[] methods = obj.getClass().getMethods();
-        //查找属性的Set
+        //查找属性的Set方法
+        for (Method m : methods) {
+            if (StringUtils.equals(m.getName(), "set" + StringUtils.capitalize(name))) {
+                m.invoke(obj, new Object[]{pobj});
+            }
+        }
     }
 
     private static Object createobjbyClassname(String classname) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
