@@ -72,4 +72,12 @@
         <!--dao所在的包-->
         <property name="basePackage" value="org.westos.web01.dao"/>
     </bean>
+    <!--aop配置方法列表-->
+    <bean id="myPointCut" class="org.westos.web01.aop.MyPointCut">
+        <property name="methodlist">
+            <list>
+                <value>org.westos.web01.aop.HelloInterface.sayHi</value>
+            </list>
+        </property>
+    </bean>
 </beans>
