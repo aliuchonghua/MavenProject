@@ -3,7 +3,6 @@ package org.westos.web01.factory;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.apache.ibatis.session.defaults.DefaultSqlSessionFactory;
 import org.springframework.beans.factory.FactoryBean;
 
 import java.io.IOException;
@@ -21,13 +20,13 @@ public class MybatisFactoryBean implements FactoryBean<SqlSessionFactory> {
     }
 
     @Override
-    public SqlSessionFactory getObject()  {
+    public SqlSessionFactory getObject() {
 
-        SqlSessionFactory sqlSessionFactory=null;
+        SqlSessionFactory sqlSessionFactory = null;
         try {
-            InputStream in= Resources.getResourceAsStream(resource);
+            InputStream in = Resources.getResourceAsStream(resource);
             //初始化sqlSession
-            sqlSessionFactory=new SqlSessionFactoryBuilder().build(in);
+            sqlSessionFactory = new SqlSessionFactoryBuilder().build(in);
         } catch (IOException e) {
             e.printStackTrace();
         }

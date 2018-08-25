@@ -27,4 +27,8 @@ public class SpringUtil {
 
         return context.getBean(name);
     }
+
+    public ApplicationContext getContext() {
+        return context;
+    }
 }
