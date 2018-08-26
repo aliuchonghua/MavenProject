@@ -16,11 +16,13 @@
         </property>
     </bean>
     <!--结合Mybatis-->
+<!--
 
     <bean id="myaware" class="org.westos.web01.Util.MyAware"/>
-    <!--另外两种初始化方式-->
+    &lt;!&ndash;另外两种初始化方式&ndash;&gt;
     <bean id="stu4" class="org.westos.web01.factory.StudentFactory" factory-method="create"></bean>
     <bean id="stu5" class="org.westos.web01.factory.StudentFactoryBean"></bean>
+-->
 
 
     <!--FactoryBean的创建方式-->
@@ -48,30 +50,30 @@
         <property name="targetListClass" value="java.util.ArrayList"/>
     </bean>
     <!--自己实现的mybatis与spring的整合-->
-    <bean id="sqlSessionFactory" class="org.westos.web01.factory.MybatisFactoryBean">
+    <!--<bean id="sqlSessionFactory" class="org.westos.web01.factory.MybatisFactoryBean">
         <property name="resource" value="mybatis.xml"/>
     </bean>
     <bean id="haohandao" class="org.westos.web01.factory.MapperFactoryBean">
         <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
         <property name="targetMapClass" value="org.westos.web01.dao.HaohanDao"/>
-    </bean>
+    </bean>-->
     <!--mybatis与spring的整合配置-->
-    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init">
+ <!--   <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://localhost:3306/javaweb?useUnicode=true&amp;characterEncoding=utf-8"/>
         <property name="username" value="root"/>
         <property name="password" value="123456"/>
     </bean>
     <bean id="sqlSessionFactoryb" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <!--数据源的配置-->
+        &lt;!&ndash;数据源的配置&ndash;&gt;
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryb"/>
-        <!--dao所在的包-->
+        &lt;!&ndash;dao所在的包&ndash;&gt;
         <property name="basePackage" value="org.westos.web01.dao"/>
-    </bean>
+    </bean>-->
     <!--aop配置方法列表-->
     <bean id="myPointCut" class="org.westos.web01.aop.MyPointCut">
         <property name="methodlist">
@@ -80,4 +82,26 @@
             </list>
         </property>
     </bean>
+    <!--SpringAOP-->
+    <!--被代理类,是一个接口的实现类-->
+    <bean id="helloInterface" class="org.westos.web01.aop.HelloInterfaceImpl"/>
+    <!--配置advice代理执行的内容类-->
+    <bean id="helloAdvice" class="org.westos.web01.SpringAOP.HelloAdvice"/>
+    <bean id="mySpringAdvice" class="org.westos.web01.SpringAOP.MySpringAdvice"/>
+    <!--代理类的配置-->
+    <aop:config>
+        <!--pointcut的配置-->
+        <!--需要被代理执行的方法-->
+        <aop:pointcut id="mycut" expression="execution(* org.westos.web01.aop.HelloInterface.say*(..))"/>
+        <!--advice的配置-->
+        <!--第一种实现方式-->
+        <!--关联代理配置-->
+        <!--<aop:advisor advice-ref="helloAdvice" pointcut-ref="mycut"/>-->
+        <!--第二种实现方式-->
+        <aop:aspect id="asp" ref="mySpringAdvice">
+            <aop:before method="doBefore" pointcut-ref="mycut"/>
+            <aop:after-returning method="doAfter" pointcut-ref="mycut"/>
+            <aop:around method="doAround" pointcut-ref="mycut"/>
+        </aop:aspect>
+    </aop:config>
 </beans>

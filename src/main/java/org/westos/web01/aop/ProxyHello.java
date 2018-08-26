@@ -17,12 +17,18 @@ public class ProxyHello implements InvocationHandler {
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        if(pointCutInterface.canProxy(method)){
-            this.adviceInterface.before(proxy,method,args);
+        /*
+        Object proxy    动态代理生成的代理类本身的实例
+        Method method   被代理的方法
+        Object[] args   方法的参数列表
+        */
+
+        if (pointCutInterface.canProxy(method)) {
+            this.adviceInterface.before(proxy, method, args);
         }
         Object result = method.invoke(helloInterface, args);
-        if(pointCutInterface.canProxy(method)){
-            this.adviceInterface.after(proxy,method,args);
+        if (pointCutInterface.canProxy(method)) {
+            this.adviceInterface.after(proxy, method, args);
         }
         return result;
     }

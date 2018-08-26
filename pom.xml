@@ -148,6 +148,13 @@
             <artifactId>druid</artifactId>
             <version>1.0.16</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.9.1</version>
+        </dependency>
+
 
     </dependencies>
 

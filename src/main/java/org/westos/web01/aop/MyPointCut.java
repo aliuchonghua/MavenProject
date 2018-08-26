@@ -1,5 +1,4 @@
 package org.westos.web01.aop;
-
 import java.lang.reflect.Method;
 import java.util.List;
 
@@ -15,8 +14,7 @@ public class MyPointCut implements PointCutInterface {
     public void setMethodlist(List<String> methodlist) {
         this.methodlist = methodlist;
     }
-
-
+//    判断是否在名单中
     @Override
     public boolean canProxy(Method method) {
         String methodname=method.getName();
