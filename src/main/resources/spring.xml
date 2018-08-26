@@ -10,19 +10,51 @@
 						http://www.springframework.org/schema/aop
 						http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
 
+    <!--开启spring的注解-->
+    <context:annotation-config></context:annotation-config>
+    <!--制定spring扫描的包，此处可以有多行-->
+    <context:component-scan base-package="org.westos.web01.SpringAOP"/>
+    <!--开启aop注解-->
+    <aop:aspectj-autoproxy proxy-target-class="false"/>
+
+    <context:property-placeholder location="classpath:jdbc.properties" file-encoding="utf-8"/>
+
+    <!--springmvc的配置-->
+    <!--将bean映射为url-->
+    <bean id="/hello.do" class="org.westos.web01.controller.BeanController">
+        <property name="student" ref="stu"/>
+    </bean>
+
+
     <bean id="aobj" class="org.westos.web01.IOC模型.A">
         <property name="a">
             <bean class="org.westos.web01.IOC模型.AInterfaceImpl1"/>
         </property>
     </bean>
+    <bean id="stu" scope="singleton" class="org.westos.web01.bean.Student">
+        <property name="xuhao" value="NO.001"></property>
+        <property name="xingming" value="张三"></property>
+        <property name="aihao">
+            <list>
+                <value>看电影</value>
+                <value>购物</value>
+            </list>
+        </property>
+        <property name="chengji">
+            <map>
+                <entry key="english" value="90"></entry>
+                <entry key="math" value="80"></entry>
+            </map>
+        </property>
+    </bean>
     <!--结合Mybatis-->
-<!--
+    <!--
 
-    <bean id="myaware" class="org.westos.web01.Util.MyAware"/>
-    &lt;!&ndash;另外两种初始化方式&ndash;&gt;
-    <bean id="stu4" class="org.westos.web01.factory.StudentFactory" factory-method="create"></bean>
-    <bean id="stu5" class="org.westos.web01.factory.StudentFactoryBean"></bean>
--->
+        <bean id="myaware" class="org.westos.web01.Util.MyAware"/>
+        &lt;!&ndash;另外两种初始化方式&ndash;&gt;
+        <bean id="stu4" class="org.westos.web01.factory.StudentFactory" factory-method="create"></bean>
+        <bean id="stu5" class="org.westos.web01.factory.StudentFactoryBean"></bean>
+    -->
 
 
     <!--FactoryBean的创建方式-->
@@ -58,22 +90,22 @@
         <property name="targetMapClass" value="org.westos.web01.dao.HaohanDao"/>
     </bean>-->
     <!--mybatis与spring的整合配置-->
- <!--   <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init">
-        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/javaweb?useUnicode=true&amp;characterEncoding=utf-8"/>
-        <property name="username" value="root"/>
-        <property name="password" value="123456"/>
-    </bean>
-    <bean id="sqlSessionFactoryb" class="org.mybatis.spring.SqlSessionFactoryBean">
-        &lt;!&ndash;数据源的配置&ndash;&gt;
-        <property name="dataSource" ref="dataSource"/>
-    </bean>
+    <!--   <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init">
+           <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+           <property name="url" value="jdbc:mysql://localhost:3306/javaweb?useUnicode=true&amp;characterEncoding=utf-8"/>
+           <property name="username" value="root"/>
+           <property name="password" value="123456"/>
+       </bean>
+       <bean id="sqlSessionFactoryb" class="org.mybatis.spring.SqlSessionFactoryBean">
+           &lt;!&ndash;数据源的配置&ndash;&gt;
+           <property name="dataSource" ref="dataSource"/>
+       </bean>
 
-    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryb"/>
-        &lt;!&ndash;dao所在的包&ndash;&gt;
-        <property name="basePackage" value="org.westos.web01.dao"/>
-    </bean>-->
+       <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+           <property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryb"/>
+           &lt;!&ndash;dao所在的包&ndash;&gt;
+           <property name="basePackage" value="org.westos.web01.dao"/>
+       </bean>-->
     <!--aop配置方法列表-->
     <bean id="myPointCut" class="org.westos.web01.aop.MyPointCut">
         <property name="methodlist">
@@ -98,10 +130,10 @@
         <!--关联代理配置-->
         <!--<aop:advisor advice-ref="helloAdvice" pointcut-ref="mycut"/>-->
         <!--第二种实现方式-->
-        <aop:aspect id="asp" ref="mySpringAdvice">
+        <!--<aop:aspect id="asp" ref="mySpringAdvice">
             <aop:before method="doBefore" pointcut-ref="mycut"/>
             <aop:after-returning method="doAfter" pointcut-ref="mycut"/>
             <aop:around method="doAround" pointcut-ref="mycut"/>
-        </aop:aspect>
+        </aop:aspect>-->
     </aop:config>
 </beans>
