@@ -14,17 +14,61 @@
     <context:annotation-config></context:annotation-config>
     <!--制定spring扫描的包，此处可以有多行-->
     <context:component-scan base-package="org.westos.web01.SpringAOP"/>
+    <context:component-scan base-package="org.westos.web01.servlet"/>
+    <context:component-scan base-package="org.westos.web01.aop"/>
+    <context:component-scan base-package="org.westos.web01.annotation"/>
+    <context:component-scan base-package="com.westos.web02.controller"/>
+
     <!--开启aop注解-->
     <aop:aspectj-autoproxy proxy-target-class="false"/>
 
     <context:property-placeholder location="classpath:jdbc.properties" file-encoding="utf-8"/>
+    <!--使用注解配置bean需要导入的两个包-->
+    <bean id="requestMappinghandlemapping"
+          class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
+    <bean id="requestMappingHandlerAdapter"
+          class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/>
 
     <!--springmvc的配置-->
+    <bean id="simplehandlemapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="urlMap">
+            <map>
+                <entry key="/hellob.do" value="hellob"/>
+            </map>
+        </property>
+    </bean>
+    <bean id="beannamehandlemapping" class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
+
+    <bean id="servletHandlerAdapter" class="org.springframework.web.servlet.handler.SimpleServletHandlerAdapter">
+
+    </bean>
+    <bean id="simpleControllerHandlerAdapter"
+          class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/>
+
+    <bean id="internalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!--指定jsp的前缀，即从哪个路径开始-->
+        <property name="prefix" value=""/>
+        <!--指定后缀-->
+        <property name="suffix" value=".jsp"/>
+        <property name="order" value="1"/>
+    </bean>
+
+    <bean id="/myServlet.do" class="org.westos.web01.servlet.MyServlet"/>
+    <bean id="hellob" class="org.westos.web01.controller.BeanController">
+        <property name="student" ref="stu"/>
+    </bean>
     <!--将bean映射为url-->
     <bean id="/hello.do" class="org.westos.web01.controller.BeanController">
         <property name="student" ref="stu"/>
     </bean>
+    <bean id="/hello.wst" class="org.westos.web01.controller.BeanController">
+        <property name="student" ref="stu"/>
+    </bean>
+    <bean id="beanNameHandlerMapping" class="org.westos.web01.servlet.handlermapping.WstBeanNameHandlerMapping"/>
+    <bean id="wstControllerHandler" class="org.westos.web01.servlet.handleradapter.WstControllerHandlerAdapter"/>
+    <bean id="jspViewerResolver" class="org.westos.web01.servlet.viewresolver.WstJspViewerResolver"/>
 
+    <bean id="myaware" class="org.westos.web01.Util.MyAware"/>
 
     <bean id="aobj" class="org.westos.web01.IOC模型.A">
         <property name="a">
